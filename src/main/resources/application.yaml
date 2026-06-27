@@ -1,3 +1,17 @@
 spring:
   application:
     name: energy-api
+
+server:
+  port: ${PORT:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+carbon-intensity:
+  api:
+    base-url: https://api.carbonintensity.org.uk
+    timeout: 5s

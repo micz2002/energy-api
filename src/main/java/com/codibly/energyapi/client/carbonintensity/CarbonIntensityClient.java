@@ -3,6 +3,7 @@ package com.codibly.energyapi.client.carbonintensity;
 import com.codibly.energyapi.client.carbonintensity.dto.GenerationApiResponse;
 import com.codibly.energyapi.exception.ExternalApiException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
@@ -11,6 +12,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class CarbonIntensityClient {
@@ -21,9 +23,14 @@ public class CarbonIntensityClient {
     private final RestClient carbonIntensityRestClient;
 
     public GenerationApiResponse getGenerationMix(OffsetDateTime from, OffsetDateTime to) {
+        String fromDateTime = formatForApi(from);
+        String toDateTime = formatForApi(to);
+
+        log.info("Fetching generation mix from {} to {}", fromDateTime, toDateTime);
+
         try {
             GenerationApiResponse response = carbonIntensityRestClient.get()
-                    .uri("/generation/{from}/{to}", formatForApi(from), formatForApi(to))
+                    .uri("/generation/{from}/{to}", fromDateTime, toDateTime)
                     .retrieve()
                     .body(GenerationApiResponse.class);
 

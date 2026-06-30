@@ -4,6 +4,7 @@ import com.codibly.energyapi.client.carbonintensity.dto.GenerationApiResponse;
 import com.codibly.energyapi.exception.ExternalApiException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
@@ -22,6 +23,7 @@ public class CarbonIntensityClient {
 
     private final RestClient carbonIntensityRestClient;
 
+    @Cacheable("generationMix")
     public GenerationApiResponse getGenerationMix(OffsetDateTime from, OffsetDateTime to) {
         String fromDateTime = formatForApi(from);
         String toDateTime = formatForApi(to);

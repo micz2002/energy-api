@@ -1,6 +1,12 @@
 spring:
   application:
     name: energy-api
+  cache:
+    type: caffeine
+    cache-names:
+      - generationMix
+    caffeine:
+      spec: maximumSize=100,expireAfterWrite=5m
 
 server:
   port: ${PORT:8080}

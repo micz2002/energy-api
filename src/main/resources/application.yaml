@@ -21,3 +21,8 @@ carbon-intensity:
   api:
     base-url: https://api.carbonintensity.org.uk
     timeout: 5s
+
+app:
+  cors:
+    allowed-origins:
+      - ${FRONTEND_ORIGIN:http://localhost:3000}

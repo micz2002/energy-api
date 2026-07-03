@@ -17,14 +17,16 @@ public class HomeController {
                         "GET /actuator/health",
                         "GET /api/energy-mix",
                         "GET /api/charging-window?durationHours=3"
-                )
+                ),
+                "The durationHours parameter accepts full hour values from 1 to 6."
         );
     }
 
     public record ApiInfoResponse(
             String name,
             String description,
-            List<String> endpoints
+            List<String> endpoints,
+            String note
     ) {
     }
 }
